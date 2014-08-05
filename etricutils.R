@@ -18,6 +18,8 @@ etricutils.createVarnames <- function(n, p, J){
   
   
 }
+#----------------
+#variable names:
 
 etricutils.cAB <- function(j, a, b){
   return(paste0('c', j, '(a', a, ',b', b, ')'))

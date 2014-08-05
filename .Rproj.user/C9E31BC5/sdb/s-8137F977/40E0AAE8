@@ -1,12 +1,12 @@
 {
-    "contents" : "etric.baseModel <- function(etric){\n  \n}\n\ncreateB1Constraint <- function(etric){\n  lhs <- matrix(0, ncol=ncol(etrib$constr$lhs), nrow=1, dimnames=list(\"B1\",colnames(etric$constr$lhs)))\n  weigthConst[, etricutils.w(1:etric$m)] <- 1\n  etric$constr$lhs <- rbind(etrib$constr$lhs, weigthConst)\n  \n  etric$constr$rhs <- rbind(etrib$constr$rhs, matrix(1, ncol=1, nrow=1, dimnames=list(\"B1\")))\n  etric$constr$dir <- rbind(etrib$constr$dir, matrix(\"==\", ncol=1, nrow=1, dimnames=list(\"B1\")))\n  return(etric)\n}\n\ncreateB2Constraint <- function(etric){\n  \n  return(etric)\n}\n\noutranking <- function(x, y, qb, qa, pb, pa, ascending){\n  px <- pa * x + pb\n  py <- pa * y + pb\n  qx <- qa * x + qb\n  qy <- qa * y + qb\n  diff <- y - x\n  if(ascending == FALSE){\n    diff <- 0 - diff\n  }\n  if(diff >= px){\n    return(0)\n  }else if(diff <= qx){\n    return(1)\n  }else \n    return((px - diff)/(px - qx))\n}",
+    "contents" : "etric.baseModel <- function(etric){\n  \n}\n\ncreateB1Constraint <- function(etric){\n  lhs <- matrix(0, ncol=ncol(etrib$constr$lhs), nrow=1, dimnames=list(\"B1\",colnames(etric$constr$lhs)))\n  weigthConst[, etricutils.w(1:etric$m)] <- 1\n  etric$constr$lhs <- rbind(etrib$constr$lhs, weigthConst)\n  \n  etric$constr$rhs <- rbind(etrib$constr$rhs, matrix(1, ncol=1, nrow=1, dimnames=list(\"B1\")))\n  etric$constr$dir <- rbind(etrib$constr$dir, matrix(\"==\", ncol=1, nrow=1, dimnames=list(\"B1\")))\n  return(etric)\n}\n\ncreateB2Constraint <- function(etric){\n  for(j in 1:etric$m){\n    wName <- etricutils.w(j)\n    lhs <- matrix(0, nrow=1, ncol=ncol(etric$constr$lhs), dimnames=list(paste0(\"B2.\",j), colnames(etric$constr$lhs)))\n    lhs[,wName] <- 1\n    etric$constr$lhs <- rbind(etric$constr$lhs, lhs)\n    \n    #tymczasowo wszytskie wagi są równe\n    etric$constr$rhs <- rbind(etric$constr$rhs, matrix(1/etric$m, ncol=1, nrow=1, dimnames=list(paste0(\"B2.\",j))))\n    etric$constr$dir <- rbind(etric$constr$dir, matrix(\"==\", ncol=1, nrow=1, dimnames=list(paste0(\"B2.\",j))))\n  }\n  return(etric)\n}\n\noutranking <- function(x, y, qb, qa, pb, pa, ascending){\n  px <- pa * x + pb\n  py <- pa * y + pb\n  qx <- qa * x + qb\n  qy <- qa * y + qb\n  diff <- y - x\n  if(ascending == FALSE){\n    diff <- 0 - diff\n  }\n  if(diff >= px){\n    return(0)\n  }else if(diff <= qx){\n    return(1)\n  }else \n    return((px - diff)/(px - qx))\n}",
     "created" : 1407241845031.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3061370101",
+    "hash" : "374236419",
     "id" : "40E0AAE8",
-    "lastKnownWriteTime" : 1407243095,
+    "lastKnownWriteTime" : 1407244405,
     "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etricbase.R",
     "project_path" : "etricbase.R",
     "properties" : {

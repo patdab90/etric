@@ -13,7 +13,16 @@ createB1Constraint <- function(etric){
 }
 
 createB2Constraint <- function(etric){
-  
+  for(j in 1:etric$m){
+    wName <- etricutils.w(j)
+    lhs <- matrix(0, nrow=1, ncol=ncol(etric$constr$lhs), dimnames=list(paste0("B2.",j), colnames(etric$constr$lhs)))
+    lhs[,wName] <- 1
+    etric$constr$lhs <- rbind(etric$constr$lhs, lhs)
+    
+    #tymczasowo wszytskie wagi są równe
+    etric$constr$rhs <- rbind(etric$constr$rhs, matrix(1/etric$m, ncol=1, nrow=1, dimnames=list(paste0("B2.",j))))
+    etric$constr$dir <- rbind(etric$constr$dir, matrix("==", ncol=1, nrow=1, dimnames=list(paste0("B2.",j))))
+  }
   return(etric)
 }
 
