@@ -1,16 +1,15 @@
 {
     "contents" : "M <- 1E+10\nMINEPS <- 1E-10\n\netriutils.solve <- function(solver, objectioveFunction, varTypes, lhs, dir, rhs, max){\n  obj <- L_objective(objectioveFunction)\n  roiConst <- L_constraint(lhs, dir, rhs)\n  \n  lp <- OP(objective=obj, constraints=roiConst, maximum=max, types=varTypes)\n  \n  ret <- ROI_solve(lp, solver)\n  \n  return(ret)\n}\n\netriutils.getConstraintTypes <- function(varnames, binaryVarNames){\n  types <- matrix(\"C\", nrow = 1, ncol=length(varnames))\n  colnames(types) <- varnames\n  types[,binaryVarNames] <- \"B\"\n  return(types[1,])\n}\n\netriutils.buildObjectiveFunction <- function(varnames, objectivesVarNames){\n  row <- matrix(0, ncol=length(varnames))\n  colnames(row) <- varnames\n  row[,objectivesVarNames] <- 1\n  return(row[1,])\n}",
-    "created" : 1407235542513.000,
+    "created" : 1407238496937.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "2975397241",
-    "id" : "DC6D5304",
+    "id" : "4E61B1C8",
     "lastKnownWriteTime" : 1407235997,
-    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etriutils.R",
-    "project_path" : "etriutils.R",
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etricommon.R",
+    "project_path" : "etricommon.R",
     "properties" : {
-        "tempName" : "Untitled1"
     },
     "source_on_save" : false,
     "type" : "r_source"

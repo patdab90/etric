@@ -1,12 +1,12 @@
 {
-    "contents" : "library(ROI.plugin.glpk)\nlibrary(ROI)\n\nsource('etrib.R')\n\n\nsolvers <- ROI_installed_solvers()\nif (!is.na(solvers['symphony'])) {\n  .solver <<- 'symphony'\n} else if (!is.na(solvers['glpk'])) {\n  .solver <<- 'glpk'\n} else {\n  stop(\"No ROI Symphony or GLPK plugin installed\")\n}",
+    "contents" : "library(ROI.plugin.glpk)\nlibrary(ROI)\n\nsource('etric.R')\n\n\nsolvers <- ROI_installed_solvers()\nif (!is.na(solvers['symphony'])) {\n  .solver <<- 'symphony'\n} else if (!is.na(solvers['glpk'])) {\n  .solver <<- 'glpk'\n} else {\n  stop(\"No ROI Symphony or GLPK plugin installed\")\n}\n\n",
     "created" : 1407236110132.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "644294830",
+    "hash" : "2974626822",
     "id" : "4D97930A",
-    "lastKnownWriteTime" : 1407236143,
+    "lastKnownWriteTime" : 1407237353,
     "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/main.R",
     "project_path" : "main.R",
     "properties" : {

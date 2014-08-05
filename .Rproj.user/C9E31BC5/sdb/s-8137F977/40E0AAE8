@@ -1,0 +1,17 @@
+{
+    "contents" : "etric.baseModel <- function(etric){\n  \n}\n\ncreateB1Constraint <- function(etric){\n  lhs <- matrix(0, ncol=ncol(etrib$constr$lhs), nrow=1, dimnames=list(\"B1\",colnames(etric$constr$lhs)))\n  weigthConst[, etricutils.w(1:etric$m)] <- 1\n  etric$constr$lhs <- rbind(etrib$constr$lhs, weigthConst)\n  \n  etric$constr$rhs <- rbind(etrib$constr$rhs, matrix(1, ncol=1, nrow=1, dimnames=list(\"B1\")))\n  etric$constr$dir <- rbind(etrib$constr$dir, matrix(\"==\", ncol=1, nrow=1, dimnames=list(\"B1\")))\n  return(etric)\n}\n\ncreateB2Constraint <- function(etric){\n  \n  return(etric)\n}\n\noutranking <- function(x, y, qb, qa, pb, pa, ascending){\n  px <- pa * x + pb\n  py <- pa * y + pb\n  qx <- qa * x + qb\n  qy <- qa * y + qb\n  diff <- y - x\n  if(ascending == FALSE){\n    diff <- 0 - diff\n  }\n  if(diff >= px){\n    return(0)\n  }else if(diff <= qx){\n    return(1)\n  }else \n    return((px - diff)/(px - qx))\n}",
+    "created" : 1407241845031.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3061370101",
+    "id" : "40E0AAE8",
+    "lastKnownWriteTime" : 1407243095,
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etricbase.R",
+    "project_path" : "etricbase.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

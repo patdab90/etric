@@ -1,0 +1,17 @@
+{
+    "contents" : "source('etriutils.R')\n\netric.init <- function(performances, profiles, assignments, monotonicity, th, cardinalities, pCk, pCl){\n  stopifnot(ncol(performances) == ncol(profiles))\n  stopifnot(is.null(assignments) || ncol(assignments) == 3)\n  stopifnot((is.null(pCk)) || (ncol(pCk) == 3))\n  stopifnot(is.null(pCl) || ncol(pCl) == 3)\n  stopifnot(nrow(assignments) < nrow(performances))\n  stopifnot(nrow(th) == ncol(performances))\n  stopifnot(nrow(th) == length(monotonicity))\n  \n  message(\"--- Constructing model\")\n  \n  n <- nrow(performances)\n  p <- nrow(profiles)-1\n  m <- ncol(performances)\n  \n  A <- 1:n ## an\n  B <- 0:p ## profile\n  H <- 1:p ## klasy \n  J <- 1:m ## j\n  \n  etric <- list()\n  etric$n <- n\n  etric$p <- p\n  etric$m <- m\n  \n  varnames <- etricutils.createVarnames(n, p, J)\n  \n  etric$constr$lhs <- intiLHS(varnames)\n  etric$constr$dir <- initDIR()\n  etric$constr$rhs <- initRHS()\n}\n\nintiLHS <- function(names){\n  lhs <- matrix(0, ncol=length(names), nrow=1,dimnames=list(\"E\",names))\n  lhs[\"E\",etricutils.e()] <- 1\n  return(lhs)\n}\n\ninitDIR <- function(){\n  dir <- matrix(c(\">=\"))\n  rownames(dir) <- c(\"E\")\n  return(dir)\n}\n\ninitRHS <- function(){\n  rhs <- matrix(MINEPS)\n  rownames(rhs) <- \"E\"\n  return(rhs)\n}\n\n\n",
+    "created" : 1407237232382.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3961215155",
+    "id" : "1988B462",
+    "lastKnownWriteTime" : 1407242832,
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etric.R",
+    "project_path" : "etric.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

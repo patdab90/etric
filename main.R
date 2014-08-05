@@ -1,7 +1,7 @@
 library(ROI.plugin.glpk)
 library(ROI)
 
-source('etrib.R')
+source('etric.R')
 
 
 solvers <- ROI_installed_solvers()
@@ -12,3 +12,4 @@ if (!is.na(solvers['symphony'])) {
 } else {
   stop("No ROI Symphony or GLPK plugin installed")
 }
+

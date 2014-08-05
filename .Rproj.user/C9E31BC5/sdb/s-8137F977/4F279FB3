@@ -1,0 +1,17 @@
+{
+    "contents" : "\netricutils.createVarnames <- function(n, p, J){\n  varnames <- etricutils.e()\n  varnames <- c(varnames, etricutils.L())\n  varnames <- c(varnames, etricutils.w(J))\n  \n  for (a in 1:n) {\n    for (b in 0:p) {\n      varnames <- c(varnames, etricutils.cAB(J, a, b))\n    }\n  }\n  \n  for (b in 0:p) {    \n    for (a in 1:n) {\n      varnames <- c(varnames, etricutils.cBA(J, b, a))\n    }\n  }\n  \n  \n}\n\netricutils.cAB <- function(j, a, b){\n  return(paste0('c', j, '(a', a, ',b', b, ')'))\n}\n\netricutils.cBA <- function(j, b, a){\n  return(paste0('c', j, '(b', b, ',a', a, ')'))\n}\n\netricutils.cBB <- function(j, b){\n  return(paste0('c', j, '(b', h, ',b', h+1, ')'))\n}\n\netricutils.w <- function(j){\n  return(paste0('w',j))\n}\n\netricutils.L <- function(){\n  return(\"L\")\n}\n\netricutils.e <- function(){\n  return(\"e\")\n}\n\n",
+    "created" : 1407238503428.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "385669077",
+    "id" : "4F279FB3",
+    "lastKnownWriteTime" : 1407240898,
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/etricutils.R",
+    "project_path" : "etricutils.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
