@@ -5,18 +5,22 @@ etricutils.createVarnames <- function(n, p, J){
   varnames <- c(varnames, etricutils.w(J))
   
   for (a in 1:n) {
-    for (b in 0:p) {
+    for (b in 0:(p+1)) {
       varnames <- c(varnames, etricutils.cAB(J, a, b))
     }
   }
   
-  for (b in 0:p) {    
+  for (b in 0:(p+1)) {    
     for (a in 1:n) {
       varnames <- c(varnames, etricutils.cBA(J, b, a))
     }
   }
   
+  for (b in 1:(p+1)) {    
+    varnames <- c(varnames, etricutils.cBB(J, b))
+  }
   
+  return(varnames)
 }
 #----------------
 #variable names:
@@ -29,7 +33,7 @@ etricutils.cBA <- function(j, b, a){
   return(paste0('c', j, '(b', b, ',a', a, ')'))
 }
 
-etricutils.cBB <- function(j, b){
+etricutils.cBB <- function(j, h){
   return(paste0('c', j, '(b', h, ',b', h+1, ')'))
 }
 

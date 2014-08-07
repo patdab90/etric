@@ -1,5 +1,7 @@
-source('etriutils.R')
-
+source('etricutils.R')
+source('etricommon.R')
+source('etricbase.R')
+source('etricassignment.R')
 etric.init <- function(performances, profiles, assignments, monotonicity, th, cardinalities, pCk, pCl){
   stopifnot(ncol(performances) == ncol(profiles))
   stopifnot(is.null(assignments) || ncol(assignments) == 3)
@@ -12,11 +14,11 @@ etric.init <- function(performances, profiles, assignments, monotonicity, th, ca
   message("--- Constructing model")
   
   n <- nrow(performances)
-  p <- nrow(profiles)-1
+  p <- nrow(profiles)-2 # p - liczba klas. Klas jest o 2 mniej niż profili
   m <- ncol(performances)
   
   A <- 1:n ## an
-  B <- 0:p ## profile
+  B <- 0:(p+1) ## profile
   H <- 1:p ## klasy 
   J <- 1:m ## j
   
@@ -30,10 +32,14 @@ etric.init <- function(performances, profiles, assignments, monotonicity, th, ca
   etric$constr$lhs <- intiLHS(varnames)
   etric$constr$dir <- initDIR()
   etric$constr$rhs <- initRHS()
+  
+  etric <- etric.buildBaseModel(etric, performances, profiles, th, monotonicity)
+  etric <- etric.buildAEModel(etric, assignments)
+  return(etric)
 }
 
 intiLHS <- function(names){
-  lhs <- matrix(0, ncol=length(names), nrow=1,dimnames=list("E",names))
+  lhs <- matrix(0, ncol=length(names), nrow=1,dimnames=list("E", names))
   lhs["E",etricutils.e()] <- 1
   return(lhs)
 }
