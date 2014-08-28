@@ -1,8 +1,10 @@
 
-etricutils.createVarnames <- function(n, p, J){
+etricutils.createVarnames <- function(n, p, J, pcK, pcL){
   varnames <- etricutils.e()
   varnames <- c(varnames, etricutils.L())
   varnames <- c(varnames, etricutils.w(J))
+  
+  binaryvar <- c()
   
   for (a in 1:n) {
     for (b in 0:(p+1)) {
@@ -20,7 +22,35 @@ etricutils.createVarnames <- function(n, p, J){
     varnames <- c(varnames, etricutils.cBB(J, b))
   }
   
-  return(varnames)
+  if(!is.null(pcK)){
+    for(i in 1:nrow(pcK)){
+      binaryvar <- c(binaryvar, etricutils.vABKH(pcK[i, 1], pcK[i, 2], pcK[i,3], 1:(p-pcK[i, 3])))
+    }
+  }
+  
+  if(!is.null(pcL)){
+    for(i in 1:nrow(pcL)){
+      binaryvar <- c(binaryvar, etricutils.vABLH(pcL[i, 1], pcL[i, 2], pcL[i,3], 1:(p-pcL[i, 3])))
+    }
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH(a,1:etric$p))
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH1(a,1:etric$p))
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH2(a,1:etric$p))
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH3(a,1:etric$p))
+  }
+  
+  return(list(float=varnames, binary=binaryvar))
 }
 #----------------
 #variable names:
@@ -48,4 +78,44 @@ etricutils.L <- function(){
 etricutils.e <- function(){
   return("e")
 }
+
+etricutils.vABKH <- function(a, b, k, h){
+  return(paste0('v(a',a,',b',b,'>=',k,'h',h,')'))
+}
+
+etricutils.vABLH <- function(a, b, l, h){
+  return(paste0('v(a',a,',b',b,'<=',l,'h',h,')'))
+}
+
+etricutils.vAH <- function(a, h){
+  return(paste0('v(a',a,',h',h,')'))
+}
+
+
+etricutils.vAH1 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',1)'))
+}
+
+
+etricutils.vAH2 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',2)'))
+}
+
+etricutils.vAH3 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',3)'))
+}
+
+etricutils.vAH4 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',4)'))
+}
+
+
+etricutils.vAH5 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',5)'))
+}
+
+etricutils.vAH6 <- function(a, h){
+  return(paste0('v(a',a,',h',h,',6)'))
+}
+
 

@@ -1,5 +1,6 @@
 library(ROI.plugin.glpk)
 library(ROI)
+library(stringr) # for tests cases
 
 solvers <- ROI_installed_solvers()
 if (!is.na(solvers['symphony'])) {
@@ -27,22 +28,18 @@ thresholds <- matrix(c(
   0, 100, 0, 200),ncol=4, byrow=TRUE)
 
 # przykładowe przdziały do klas
-assigs1 <- matrix(
-  c(2, 1, 2,
-    5, 2, 3),ncol=3, byrow=TRUE)
+assigs1 <- NULL#matrix(c(2, 1, 2, 5, 2, 3),ncol=3, byrow=TRUE)
 
 monotonicity <- c(TRUE, TRUE, FALSE)
 
-cardinalities <- matrix(
-  c(1, 1, 2,
-    3, 1, 1), ncol=3, byrow=TRUE)
+cardinalities <- NULL#matrix(c(1, 1, 2, 3, 1, 1), ncol=3, byrow=TRUE)
 
-pairwiseComparisionsK <- NULL#matrix(c(1, 2, 0), ncol=3, byrow=TRUE)
+pairwiseComparisionsK <- matrix(c(1, 2, 0), ncol=3, byrow=TRUE)
 
-pairwiseComparisionsL <- NULL#matrix(c(5, 2, 2), ncol=3, byrow=TRUE)
+pairwiseComparisionsL <- matrix(c(5, 2, 2), ncol=3, byrow=TRUE)
 
 message("--- starting tests, iteration 1")
 
 etri <- etric.init(alts, profs, assigs1, monotonicity, th=thresholds,
                    cardinalities, pairwiseComparisionsK, pairwiseComparisionsL)
-etri$constr$lhs
+etri$constr$lhs[str_detect(rownames(etri$constr$lhs),"PCL12.*"),]

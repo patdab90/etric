@@ -2,6 +2,8 @@ source('etricutils.R')
 source('etricommon.R')
 source('etricbase.R')
 source('etricassignment.R')
+source('etricpaiwisecmp.R')
+
 etric.init <- function(performances, profiles, assignments, monotonicity, th, cardinalities, pCk, pCl){
   stopifnot(ncol(performances) == ncol(profiles))
   stopifnot(is.null(assignments) || ncol(assignments) == 3)
@@ -27,14 +29,17 @@ etric.init <- function(performances, profiles, assignments, monotonicity, th, ca
   etric$p <- p
   etric$m <- m
   
-  varnames <- etricutils.createVarnames(n, p, J)
+  var <- etricutils.createVarnames(n, p, J, pCk, pCl)
   
-  etric$constr$lhs <- intiLHS(varnames)
+  etric$binaryvar <- var$binary
+  
+  etric$constr$lhs <- intiLHS(c(var$float, var$binary))
   etric$constr$dir <- initDIR()
   etric$constr$rhs <- initRHS()
   
   etric <- etric.buildBaseModel(etric, performances, profiles, th, monotonicity)
   etric <- etric.buildAEModel(etric, assignments)
+  etric <- etric.buildPCModel(etric, pCk, pCl )
   return(etric)
 }
 
