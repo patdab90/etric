@@ -12,9 +12,9 @@ etriutils.solve <- function(solver, objectioveFunction, varTypes, lhs, dir, rhs,
   return(ret)
 }
 
-etriutils.getConstraintTypes <- function(varnames, binaryVarNames){
-  types <- matrix("C", nrow = 1, ncol=length(varnames))
-  colnames(types) <- varnames
+etriutils.getConstraintTypes <- function(allvarnames, binaryVarNames){
+  types <- matrix("C", nrow = 1, ncol=length(allvarnames))
+  colnames(types) <- allvarnames
   types[,binaryVarNames] <- "B"
   return(types[1,])
 }

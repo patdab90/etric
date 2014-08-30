@@ -28,18 +28,64 @@ thresholds <- matrix(c(
   0, 100, 0, 200),ncol=4, byrow=TRUE)
 
 # przykładowe przdziały do klas
-assigs1 <- NULL#matrix(c(2, 1, 2, 5, 2, 3),ncol=3, byrow=TRUE)
+assigs1 <- matrix(c(2, 1, 2,
+                    5, 3, 3),ncol=3, byrow=TRUE)
 
 monotonicity <- c(TRUE, TRUE, FALSE)
 
-cardinalities <- NULL#matrix(c(1, 1, 2, 3, 1, 1), ncol=3, byrow=TRUE)
+cardinalities <- matrix(c(1, 1, -1, 
+                        #  2, 2, 3,
+                          3, 1, -1), ncol=3, byrow=TRUE)
 
-pairwiseComparisionsK <- matrix(c(1, 2, 0), ncol=3, byrow=TRUE)
+pairwiseComparisionsK <- matrix(c(1, 2, 1), ncol=3, byrow=TRUE)
 
 pairwiseComparisionsL <- matrix(c(5, 2, 2), ncol=3, byrow=TRUE)
 
 message("--- starting tests, iteration 1")
 
+
+constraintsToString <- function(lhs, dir, rhs){
+  res <- matrix("", nrow=nrow(lhs), ncol=1, dimnames=list(rownames(lhs)))
+  for(j in 1:nrow(lhs)){
+    for(i in 1:ncol(lhs)){
+      if(lhs[j,i] != 0){
+        if(lhs[j,i] > 0){
+          sign <- "+"
+          if(res[j,] == "") {
+            sign <- "" 
+          }
+          if(lhs[j,i] == 1){
+            res[j,] <- paste(res[j,], sign ,colnames(lhs)[i])
+          }else{
+            res[j,] <- paste(res[j,],sign,lhs[j,i],colnames(lhs)[i])
+          }
+        }else{
+          if(lhs[j,i] == -1){
+            res[j,] <- paste(res[j,],"-",colnames(lhs)[i])
+          }else{
+            res[j,] <- paste(res[j,],lhs[j,i],colnames(lhs)[i])
+          }
+        }
+      }
+    }
+    res[j,] <- paste(res[j,],dir[j,],rhs[j,])
+  }
+  return(res)
+}
+
+
 etri <- etric.init(alts, profs, assigs1, monotonicity, th=thresholds,
                    cardinalities, pairwiseComparisionsK, pairwiseComparisionsL)
-etri$constr$lhs[str_detect(rownames(etri$constr$lhs),"PCL12.*"),]
+
+c <- constraintsToString(etri$constr$lhs, etri$constr$dir, etri$constr$rhs)
+c
+etric.isFeasible(etri, .solver)
+p <- etric.possibleAssigment(etric=etri, .solver)
+p
+#n <- etric.necessaryAssigment(etri, .solver)
+#n
+r <- etric.necessaryPreferenceRelation(etri, .solver)
+r
+cc <- etric.classCardinalities(etri, FALSE, .solver)
+cc
+#etri$constr$lhs[str_detect(rownames(etri$constr$lhs),"PCL12.*"),]

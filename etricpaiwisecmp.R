@@ -1,4 +1,11 @@
 etric.buildPCModel <- function(etric, pck, pcl){
+  etric <- createPCLConstraints(etric, pck)
+  etric <- createPCUConstraints(etric, pcl)
+  return(etric)
+}
+
+createPCLConstraints <- function(etric, pck){
+  if(is.null(pck)) return(etric)
   etric <- createPCL11Constraint(etric, pck)
   etric <- createPCL12Constraint(etric, pck)
   etric <- createPCL13Constraint(etric, pck)
@@ -6,7 +13,11 @@ etric.buildPCModel <- function(etric, pck, pcl){
   etric <- createPCL22Constraint(etric, pck)
   etric <- createPCL23Constraint(etric, pck)
   etric <- createPCL3Constraint(etric, pck)
+  return(etric)
+}
 
+createPCUConstraints <- function(etric, pcl){
+  if(is.null(pcl)) return(etric)
   etric <- createPCU11Constraint(etric, pcl)
   etric <- createPCU12Constraint(etric, pcl)
   etric <- createPCU13Constraint(etric, pcl)

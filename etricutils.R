@@ -1,3 +1,21 @@
+intiLHS <- function(names){
+  lhs <- matrix(0, ncol=length(names), nrow=1,dimnames=list("E", names))
+  lhs["E",etricutils.e()] <- 1
+  return(lhs)
+}
+
+initDIR <- function(){
+  dir <- matrix(c(">="))
+  rownames(dir) <- c("E")
+  return(dir)
+}
+
+initRHS <- function(){
+  rhs <- matrix(MINEPS)
+  rownames(rhs) <- "E"
+  return(rhs)
+}
+
 
 etricutils.createVarnames <- function(n, p, J, pcK, pcL){
   varnames <- etricutils.e()
@@ -35,20 +53,33 @@ etricutils.createVarnames <- function(n, p, J, pcK, pcL){
   }
   
   for(a in 1:n){
-    binaryvar <- c(binaryvar, etricutils.vAH(a,1:etric$p))
+    binaryvar <- c(binaryvar, etricutils.vAH(a,1:p))
   }
   
   for(a in 1:n){
-    binaryvar <- c(binaryvar, etricutils.vAH1(a,1:etric$p))
+    binaryvar <- c(binaryvar, etricutils.vAH1(a,1:p))
   }
   
   for(a in 1:n){
-    binaryvar <- c(binaryvar, etricutils.vAH2(a,1:etric$p))
+    binaryvar <- c(binaryvar, etricutils.vAH2(a,1:p))
   }
   
   for(a in 1:n){
-    binaryvar <- c(binaryvar, etricutils.vAH3(a,1:etric$p))
+    binaryvar <- c(binaryvar, etricutils.vAH3(a,1:p))
   }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH4(a,1:p))
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH5(a,1:p))
+  }
+  
+  for(a in 1:n){
+    binaryvar <- c(binaryvar, etricutils.vAH6(a,1:p))
+  }
+  
   
   return(list(float=varnames, binary=binaryvar))
 }

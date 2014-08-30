@@ -13,7 +13,7 @@ createAEL1Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEL1.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
     lhs[i, etricutils.cAB(J, a[1], a[2] - 1)] <- 1
     lhs[i, etricutils.L()] <- -1
@@ -28,7 +28,7 @@ createAEL2Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEL2.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
     lhs[i, etricutils.cBA(J, a[2] - 1, a[1])] <- 1
     lhs[i, etricutils.L()] <- -1
@@ -44,10 +44,10 @@ createAEL3Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEL3.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
-    lhs[i, etricutils.cBA(J, a[2] - 1, a[1])] <- -1
-    lhs[i, etricutils.cAB(J, a[1], a[2] - 1)] <- 1
+    lhs[i, etricutils.cBA(J, a[2]-1, a[1])] <- -1
+    lhs[i, etricutils.cAB(J, a[1], a[2])] <- 1
     lhs[i, etricutils.e()] <- -1
   }
   etric$constr$lhs <- rbind(etric$constr$lhs, lhs)
@@ -61,7 +61,7 @@ createAEU1Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEU1.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
     lhs[i, etricutils.cBA(J, a[3]+1, a[1])] <- 1
     lhs[i, etricutils.L()] <- -1
@@ -76,7 +76,7 @@ createAEU2Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEU2.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
     lhs[i, etricutils.cAB(J, a[1], a[3] + 1)] <- 1
     lhs[i, etricutils.e()] <- 1
@@ -92,10 +92,10 @@ createAEU3Constraint <- function(etric, assignment){
   J <- 1:etric$m
   rownames <- paste0("AEU3.",1:nrow(assignment))
   lhs <- matrix(0, ncol=ncol(etric$constr$lhs), nrow=nrow(assignment), dimnames=list(rownames, colnames(etric$constr$lhs)))
-  for(i in nrow(assignment)){
+  for(i in 1:nrow(assignment)){
     a <- assignment[i, ]
     lhs[i, etricutils.cAB(J, a[1], a[3] + 1)] <- -1
-    lhs[i, etricutils.cBA(J, a[3] + 1, a[1])] <- 1
+    lhs[i, etricutils.cBA(J, a[3], a[1])] <- 1
     lhs[i, etricutils.e()] <- -1
   }
   etric$constr$lhs <- rbind(etric$constr$lhs, lhs)
