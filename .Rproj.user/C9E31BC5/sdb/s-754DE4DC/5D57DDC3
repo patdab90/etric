@@ -1,0 +1,17 @@
+{
+    "contents" : "library(ROI.plugin.glpk)\nlibrary(ROI)\n\nsolvers <- ROI_installed_solvers()\nif (!is.na(solvers['symphony'])) {\n  .solver <<- 'symphony'\n} else if (!is.na(solvers['glpk'])) {\n  .solver <<- 'glpk'\n} else {\n  stop(\"No ROI Symphony or GLPK plugin installed\")\n}\nsource('etric.R')\n#warianty\nalts <- read.table(file=\"alts_test.csv\", sep=\",\", header=TRUE)\nrownames(alts) = alts[,1]\nalts <- alts[,2:ncol(alts)]\n\n#granice klas\nprofs <- read.table(file=\"profs_test.csv\", sep=\",\", header=FALSE)\nrownames(profs) = profs[,1]\nprofs <- profs[,2:ncol(profs)]\ncolnames(profs) <- colnames(alts)\n\nthresholds <- matrix(c(\n  0, 0.01, 0, 0.02,\n  0, 0, 1.9, 0, \n  0, 0, 1.9, 0, \n  0, 0, 1.9, 0, \n  0, 0, 2, 0),ncol=4, byrow=TRUE)\n\nas <- matrix(c(\n  1, 1,\n  8, 2,\n  13, 2,\n  16, 3,\n  40, 4)\n  , ncol=2, byrow=TRUE)\n\nassigns <- matrix(c(as[,1], as[,2], as[,2]), ncol=3, nrow=nrow(as))\n\n\nmonotonicity <- c(FALSE, FALSE, FALSE, FALSE, FALSE)\n\ncardinalities <- NULL#matrix(c(1, 1, -1, \n#  2, 2, 3,\n                         # 3, 1, -1), ncol=3, byrow=TRUE)\n\npairwiseComparisionsK <- NULL#matrix(c(1, 2, 1), ncol=3, byrow=TRUE)\n\npairwiseComparisionsL <- NULL#matrix(c(5, 2, 2), ncol=3, byrow=TRUE)\n\nmessage(\"--- starting tests, iteration 1\")\nprofs <- etric.createBorderProfiles(alts,profs,monotonicity)\netri <- etric.init(alts, profs, assigns, monotonicity, th=thresholds,\n                   cardinalities, pairwiseComparisionsK, pairwiseComparisionsL)\n\nf <- etric.isFeasible(etri, .solver)\nf\nif(f){\n  p <- etric.possibleAssigment(etric=etri, .solver)\n  p\n  n <- etric.necessaryAssigment(etri, .solver)\n  n\n  #r <- etric.necessaryPreferenceRelation(etri, .solver)\n  #r\n  cc <- etric.classCardinalities(etri, FALSE, .solver)\n  cc\n}\n#etri$constr$lhs[str_detect(rownames(etri$constr$lhs),\"PCL12.*\"),]",
+    "created" : 1409442880334.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3767532048",
+    "id" : "5D57DDC3",
+    "lastKnownWriteTime" : 1409455965,
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/test.R",
+    "project_path" : "test.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

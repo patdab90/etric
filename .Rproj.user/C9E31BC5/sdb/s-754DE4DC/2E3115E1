@@ -1,0 +1,17 @@
+{
+    "contents" : "library(stringr) # for tests cases\n\nconstraintsToString <- function(lhs, dir, rhs){\n  res <- matrix(\"\", nrow=nrow(lhs), ncol=1, dimnames=list(rownames(lhs)))\n  for(j in 1:nrow(lhs)){\n    for(i in 1:ncol(lhs)){\n      if(lhs[j,i] != 0){\n        if(lhs[j,i] > 0){\n          sign <- \"+\"\n          if(res[j,] == \"\") {\n            sign <- \"\" \n          }\n          if(lhs[j,i] == 1){\n            res[j,] <- paste(res[j,], sign ,colnames(lhs)[i])\n          }else{\n            res[j,] <- paste(res[j,],sign,lhs[j,i],colnames(lhs)[i])\n          }\n        }else{\n          if(lhs[j,i] == -1){\n            res[j,] <- paste(res[j,],\"-\",colnames(lhs)[i])\n          }else{\n            res[j,] <- paste(res[j,],lhs[j,i],colnames(lhs)[i])\n          }\n        }\n      }\n    }\n    res[j,] <- paste(res[j,],dir[j,],rhs[j,])\n  }\n  return(res)\n}\n",
+    "created" : 1409443114124.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4242068771",
+    "id" : "2E3115E1",
+    "lastKnownWriteTime" : 1409443141,
+    "path" : "C:/Users/Patryk/Desktop/Praca Magisterska/ELECTRE TRI C/etric/testutils.R",
+    "project_path" : "testutils.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

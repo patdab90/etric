@@ -143,3 +143,18 @@ etric.classCardinalities <- function(etric, max, solver){
   return(classCardinalities)
 }
 
+etric.createBorderProfiles <- function(alternatives, profiles, monotocity){
+  minp <- rep(0,ncol(alternatives))
+  maxp <- rep(0,ncol(alternatives))
+  for(c in 1:ncol(alternatives)){
+    if(monotocity[c]){
+      minp[c] <- min(alternatives[,c])
+      maxp[c] <- max(alternatives[,c])
+    }else{
+      minp[c] <- max(alternatives[,c])
+      maxp[c] <- min(alternatives[,c])
+    }
+  }
+  return(rbind(minp,profiles,maxp))
+}
+
