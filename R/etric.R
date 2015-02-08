@@ -1,10 +1,10 @@
-source('etricutils.R')
-source('etricommon.R')
-source('etricbase.R')
-source('etricassignment.R')
-source('etricpaiwisecmp.R')
-source('etriccardinalities.R')
-source('etricreturns.R')
+# source('etricutils.R')
+# source('etricommon.R')
+# source('etricbase.R')
+# source('etricassignment.R')
+# source('etricpaiwisecmp.R')
+# source('etriccardinalities.R')
+# source('etricreturns.R')
 
 etric.init <- function(performances, profiles, assignments, monotonicity, th, cardinalities, pCk, pCl){
   stopifnot(ncol(performances) == ncol(profiles))
