@@ -9,9 +9,9 @@ sapply(pathnames, FUN=source);
 #performanceTale
 #klasy/kategorie
 #linearConstraints
-alternativesFile <- "tests/alternatives.xml"
-criteriaFile <- "tests/criteria.xml"
-performanceTableFile <- "tests/performanceTable.xml"
+alternativesFile <- "tests/data/alternatives.xml"
+criteriaFile <- "tests/data/criteria.xml"
+performanceTableFile <- "tests/data/performanceTable.xml"
 
 err <- c()
 
@@ -19,27 +19,27 @@ treeAlternatives<-xmlTreeParse(alternativesFile,useInternalNodes=TRUE)
 treeCriteria<-xmlTreeParse(criteriaFile,useInternalNodes=TRUE)
 treePerformanceTable<-xmlTreeParse(performanceTableFile,useInternalNodes=TRUE)
 
-if(treeAlternatives){
+if(is.null(treeAlternatives)){
   stop()
 }
-if(treeCriteria){
+if(is.null(treeCriteria)){
   stop()
 }
-if(treePerformanceTable){
+if(is.null(treePerformanceTable)){
   stop()
 }
-if(checkXSD(treeAlternatives)){
+if(!checkXSD(treeAlternatives)){
   err <- "error"
 }
-if(checkXSD(treeCriteria)){
+if(!checkXSD(treeCriteria)){
   err <- "error"
 }
-if(checkXSD(treePerformanceTable)){
+if(!checkXSD(treePerformanceTable)){
   err <- "error"
 }
 
 if(length(err) > 0){
-  stop()
+  stop(err)
 }
 
 critIDs <- getCriteriaIDs(treeCriteria)

@@ -9,7 +9,7 @@ if (!is.na(solvers['symphony'])) {
 } else {
   stop("No ROI Symphony or GLPK plugin installed")
 }
-source('etric.R')
+source('R/etric.R')
 #warianty
 alts <- read.table(file="alts.csv", sep="\t", header=TRUE)
 rownames(alts) = alts[,1]
